@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery To-Do App</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+    padding: 30px;
+}
+
+.container {
+    width: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#addBtn {
+    padding: 10px 15px;
+    background: #00aaff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#taskList {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    background: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.complete {
+    text-decoration: line-through;
+    color: #777;
+}
+
+.deleteBtn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    </style>
+
+    <div class="container">
+        <h1>jQuery To-Do List</h1>
+
+        <div class="input-area">
+            <input type="text" id="taskInput" placeholder="Enter a task">
+            <button id="addBtn">Add Task</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <script src="script.js">
+        $(document).ready(function() {
+
+    // Add new task
+    $("#addBtn").click(function() {
+        let taskText = $("#taskInput").val().trim();
+
+        if (taskText === "") {
+            alert("Please enter a task!");
+            return;
+        }
+
+        // Add new list item
+        $("#taskList").append(`
+            <li>
+                <span class="task">${taskText}</span>
+                <button class="deleteBtn">Delete</button>
+            </li>
+        `);
+
+        $("#taskInput").val("");
+    });
+
+    // Mark task complete
+    $(document).on("click", ".task", function() {
+        $(this).toggleClass("complete");
+    });
+
+    // Delete task
+    $(document).on("click", ".deleteBtn", function() {
+        $(this).parent().fadeOut(300, function() {
+            $(this).remove();
+        });
+    });
+
+});
+
+    </script>
+
+</body>
+</html>
